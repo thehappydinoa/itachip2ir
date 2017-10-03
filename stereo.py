@@ -40,12 +40,12 @@ def volume_repeat(number):
 	return "completeir"
 
 def set_input(inputName):
-	input = inputName.upper()
-	if input == 'SAT':
+	inputName = inputName.upper()
+	if inputName == 'SAT':
 		return send_command('input_sat')
-	elif input == 'TV':
+	elif inputName == 'TV':
 		return send_command('input_tv')
-	elif input == 'BD':
+	elif inputName == 'BD':
 		return send_command('input_bd')
 	return "error"
 
