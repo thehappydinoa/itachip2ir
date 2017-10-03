@@ -1,6 +1,4 @@
 import socket
-import time
-import sys
 
 itach_ip = ''
 
@@ -15,11 +13,9 @@ def send_command(command):
 		msg = s.recv(4096)
 		s.close()
 		del s
-		return msg	
-	
+		return msg
+
 def set_ip(ip):
 	global itach_ip
 	itach_ip = str(ip)
 	return True
-	
-	
