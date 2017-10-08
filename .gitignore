@@ -1,0 +1,6 @@
+
+coverage\.xml
+
+\.coverage
+
+*.pyc
