@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='itachip2ir',
-    version='1.1.3',
+    version='1.1.4',
     description='A small Python module for interacting with the Global Cache iTach WF2IR or IP2IR',
     long_description=long_description,
     url='https://github.com/thehappydinoa/itachip2ir',
@@ -40,5 +40,6 @@ setup(
         'Bug Reports': 'https://github.com/thehappydinoa/itachip2ir/issues',
         'Say Thanks!': 'http://saythanks.io/to/thehappydinoa',
         'Contribute!': 'https://github.com/thehappydinoa/itachip2ir/pulls',
+        'Follow Me!': 'https://twitter.com/thehappydinoa/',
     },
 )

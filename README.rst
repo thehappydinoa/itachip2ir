@@ -1,4 +1,4 @@
-itachip2ir v1.1.3
+itachip2ir v1.1.4
 =================
 A small Python module for interacting with the Global Caché iTach WF2IR or IP2IR
 
