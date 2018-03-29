@@ -4,12 +4,12 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='itachip2ir',
-    version='1.1.2',
+    version='1.1.3',
     description='A small Python module for interacting with the Global Cache iTach WF2IR or IP2IR',
     long_description=long_description,
     url='https://github.com/thehappydinoa/itachip2ir',
