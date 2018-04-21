@@ -58,7 +58,7 @@ class device(object):
             s.close()
             del s
             return msg
-        except socket.error as e:
+        except socket.error:
             #print(bad + "Error connecting to '%s' @ %s:%s" % (self.iTach._get_name(), self.iTach._get_ip(), self.iTach._get_port()))
             raise Exception("Error connecting to '%s' @ %s:%s" % (
                 self.iTach._get_name(), self.iTach._get_ip(), self.iTach._get_port()))
