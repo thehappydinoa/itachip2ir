@@ -1,7 +1,9 @@
 """device"""
-from contextlib import closing
-import socket
 import ipaddress
+import socket
+from contextlib import closing
+
+from .exception import iTachException
 
 
 class iTach(object):
@@ -61,33 +63,34 @@ class VirtualDevice(object):
     def format_command_name(self, command_name):
         """format command in commands for sending"""
         command = self.commands[command_name]
-        return self.format_command(command)
+        return self.format_command(command).encode()
 
     def send_command(self, command_name, byte_size=4096, timeout=3):
         """send command from commands"""
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(timeout)
         try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((self.ip_address, self.port))
-            sock.settimeout(timeout)
             sock.sendall(self.format_command_name(command_name))
             msg = sock.recv(byte_size)
-            sock.close()
             return msg
         except socket.error as error:
-            print(repr(error))
-            return error
+            return iTachException(error)
+        finally:
+            sock.close()
 
     def send_commands(self, command_name, repeats, byte_size=4096, timeout=3):
         """send command multiple times from command from commands"""
         for x in range(repeats):
-            self.send_command(command_name, byte_size, timeout)
+            response = self.send_command(command_name, byte_size, timeout)
+        return response
 
 
 if __name__ == "__main__":
     blueray_commands = {
-        "toggle_power": "test"
+        "toggle_power": "get_NET"
     }
-    itach = iTach(ip_address="localhost", port=4998)
+    itach = iTach(ip_address="192.168.1.111", port=4998)
     blueray = itach.add(VirtualDevice(
         name="blueray", commands=blueray_commands))
     print(blueray.send_command("toggle_power"))
