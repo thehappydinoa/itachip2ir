@@ -24,12 +24,15 @@ class iTach(object):
             sock.settimeout(3)
             return sock.connect_ex((self.ipaddress, self.port)) == 0
 
-    def add(self, device):
+    def add(self, *devices):
         """adds device to devices"""
-        device.ipaddress = self.ipaddress
-        device.port = self.port
-        self.devices[device.name] = device
-        return device
+        for device in devices:
+            device.ipaddress = self.ipaddress
+            device.port = self.port
+            self.devices[device.name] = device
+        if len(devices) > 1:
+            return devices
+        return devices[0]
 
     def send_command(self, device_name, command_name):
         """sends command to device"""
