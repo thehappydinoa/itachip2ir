@@ -21,7 +21,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production',
 
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
@@ -35,7 +35,8 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
     ],
 
     keywords='itach ip2ir Global Cache ir smart-home',
@@ -47,5 +48,5 @@ setup(
         'Say Thanks!': 'http://saythanks.io/to/thehappydinoa',
         'Contribute!': 'https://github.com/thehappydinoa/itachip2ir/pulls',
         'Follow Me!': 'https://twitter.com/thehappydinoa/'
-    },
+    }
 )
