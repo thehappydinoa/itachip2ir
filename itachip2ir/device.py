@@ -1,4 +1,4 @@
-"""device"""
+"""device.py"""
 import socket
 from contextlib import closing
 
@@ -24,15 +24,15 @@ class iTach(object):
             sock.settimeout(3)
             return sock.connect_ex((self.ipaddress, self.port)) == 0
 
-    def add(self, *devices):
+    def add(self, *args):
         """adds device to devices"""
-        for device in devices:
+        for device in args:
             device.ipaddress = self.ipaddress
             device.port = self.port
             self.devices[device.name] = device
-        if len(devices) > 1:
-            return devices
-        return devices[0]
+        if len(args) > 1:
+            return args
+        return args[0]
 
     def send_command(self, device_name, command_name):
         """sends command to device"""
@@ -49,26 +49,29 @@ class VirtualDevice(object):
         """init method"""
         self.name = name
         self.commands = commands
-        self.generate_methods()
+        self.generate_functions()
 
     def __repr__(self):
         """repr method"""
         return "VirtualDevice(name=%s, commands=%s)" % (self.name, self.commands)
 
-    def generate_methods(self):
+    def generate_functions(self):
+        """dynamically generate functions"""
         for command_name in self.commands.keys():
-            def fn():
+            def func():
+                """generated fuction"""
                 return self.send_command(command_name)
-            setattr(self, command_name, fn)
-            fn.__name__ = command_name
+            setattr(self, command_name, func)
+            func.__name__ = command_name
 
     def format_message(self, msg):
+        """format message"""
         if isinstance(msg, bytes):
             return msg.decode()
         return msg
 
     def format_command(self, command):
-        """format command for sending"""
+        """format command"""
         if not command.endswith("\r"):
             return command + "\r"
         return command
@@ -93,7 +96,7 @@ class VirtualDevice(object):
 
     def send_commands(self, command_name, repeats, byte_size=4096, timeout=3):
         """send command multiple times from command from commands"""
-        for x in range(repeats):
+        for _command in range(repeats):
             response = self.send_command(command_name, byte_size, timeout)
         return response
 

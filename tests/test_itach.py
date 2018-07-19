@@ -21,6 +21,23 @@ class TestITach(object):
         assert device.name == name
         assert device.commands == commands
 
+    def test_devices(self):
+        name1 = "device1"
+        name2 = "device2"
+        commands = {"test_command": "test_ir"}
+        itach = iTach(ipaddress="192.168.1.111", port=4998)
+        device1 = VirtualDevice(
+            name=name1, commands=commands)
+        device2 = VirtualDevice(
+            name=name2, commands=commands)
+        devices = itach.add(device1, device2)
+        assert itach.devices[device1.name] == device1
+        assert itach.devices[device2.name] == device2
+        assert device1.name == name1
+        assert device2.name == name2
+        assert device1.commands == commands
+        assert device2.commands == commands
+
     def test_exception(self):
         with pytest.raises(iTachException):
             raise iTachException("ERR_01")
