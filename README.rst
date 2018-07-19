@@ -1,22 +1,29 @@
-itachip2ir v1.2.0
+=================
+itachip2ir v1.3.0
 =================
 A small Python module for interacting with the Global Caché iTach WF2IR or IP2IR
 
+==========
 How To Use
-=================
+==========
 .. code-block:: python
 
-	from itachip2ir import iTach, device
+  from itachip2ir import VirtualDevice, iTach
 
-	blueray_commands = {
-        "toggle_power": ""
-    }
-  itach = iTach(ip="localhost", port=4998)
+  commands = {
+    "toggle_power": "sendir,1:3,1,40192,1,1,97,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,529,96,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,528,96,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,553,97,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,554,97,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,554,97,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,554,97,23,49,23,25,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,25,23,49,23,49,23,25,23,49,23,25,23,25,23,25,23,49,23,49,23,49,4000"
+  }
+
+  itach = iTach(ipaddress="192.168.1.111", port=4998)
   blueray = itach.add(VirtualDevice(
-      name="blueray", commands=blueray_commands))
-  print(stereo.send_command("on"))
+    name="blueray", commands=commands))
 
-Check the examples folder for more
+
+  if __name__ == "__main__":
+    print(blueray.toggle_power())
+
+
+Check the ``examples/`` folder for more
 
 `The source for this project is available here
 <https://github.com/thehappydinoa/itachip2ir>`_.
