@@ -1,7 +1,10 @@
-=================
-itachip2ir v1.3.0
-=================
-A small Python module for interacting with the Global Caché iTach WF2IR or IP2IR
+==========
+itachip2ir
+==========
+.. image:: https://travis-ci.org/thehappydinoa/itachip2ir.svg?branch=master
+    :target: https://travis-ci.org/thehappydinoa/itachip2ir
+
+A small module for interacting with the Global Caché iTach WF2IR or IP2IR
 
 ==========
 How To Use
