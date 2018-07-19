@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='itachip2ir',
-    version='1.3.5',
+    version='1.3.6',
     description='A small Python module for interacting with the Global Cache iTach WF2IR or IP2IR',
     long_description=long_description,
     url='https://github.com/thehappydinoa/itachip2ir',
@@ -35,7 +35,8 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
     ],
 
     keywords='itach ip2ir Global Cache ir smart-home',
