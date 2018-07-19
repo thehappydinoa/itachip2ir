@@ -12,7 +12,7 @@ python:
   - "pypy"
   - "pypy3"
 install:
+  - pip install -U pytest setuptools
   - python setup.py install
-  - pip install pytest
 script:
   - pytest
