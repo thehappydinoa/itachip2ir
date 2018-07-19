@@ -1,5 +1,4 @@
 """device"""
-import ipaddress
 import socket
 from contextlib import closing
 
@@ -10,26 +9,24 @@ class iTach(object):
     """iTach class"""
     devices = {}
 
-    def __init__(self, ip_address="192.168.1.111", port=4998):
+    def __init__(self, ipaddress="192.168.1.111", port=4998):
         """init method"""
-        if ip_address != "localhost":
-            self.ip_address = str(ipaddress.ip_address(ip_address))
-        self.ip_address = ip_address
+        self.ipaddress = ipaddress
         self.port = port
 
     def __repr__(self):
-        return "iTach(devices=%s, ip_address=%s, port=%d)" % (
-            self.devices, self.ip_address, self.port)
+        return "iTach(devices=%s, ipaddress=%s, port=%d)" % (
+            self.devices, self.ipaddress, self.port)
 
     def _check_ip(self):
-        """checks if ip_address valid"""
+        """checks if ipaddress valid"""
         with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
             sock.settimeout(3)
-            return sock.connect_ex((self.ip_address, self.port)) == 0
+            return sock.connect_ex((self.ipaddress, self.port)) == 0
 
     def add(self, device):
         """adds device to devices"""
-        device.ip_address = self.ip_address
+        device.ipaddress = self.ipaddress
         device.port = self.port
         self.devices[device.name] = device
         return device
@@ -42,17 +39,30 @@ class iTach(object):
 
 class VirtualDevice(object):
     """VirtualDevice class"""
-    ip_address = ""
+    ipaddress = ""
     port = 4998
 
     def __init__(self, name="", commands={}):
         """init method"""
         self.name = name
         self.commands = commands
+        self.generate_methods()
 
     def __repr__(self):
         """repr method"""
         return "VirtualDevice(name=%s, commands=%s)" % (self.name, self.commands)
+
+    def generate_methods(self):
+        for command_name in self.commands.keys():
+            def fn():
+                return self.send_command(command_name)
+            setattr(self, command_name, fn)
+            fn.__name__ = command_name
+
+    def format_message(self, msg):
+        if isinstance(msg, bytes):
+            return msg.decode()
+        return msg
 
     def format_command(self, command):
         """format command for sending"""
@@ -70,10 +80,9 @@ class VirtualDevice(object):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)
         try:
-            sock.connect((self.ip_address, self.port))
+            sock.connect((self.ipaddress, self.port))
             sock.sendall(self.format_command_name(command_name))
-            msg = sock.recv(byte_size)
-            return msg
+            return self.format_message(sock.recv(byte_size))
         except socket.error as error:
             return iTachException(error)
         finally:
@@ -87,10 +96,7 @@ class VirtualDevice(object):
 
 
 if __name__ == "__main__":
-    blueray_commands = {
-        "toggle_power": "get_NET"
-    }
-    itach = iTach(ip_address="192.168.1.111", port=4998)
+    itach = iTach(ipaddress="192.168.1.111", port=4998)
     blueray = itach.add(VirtualDevice(
-        name="blueray", commands=blueray_commands))
-    print(blueray.send_command("toggle_power"))
+        name="blueray", commands={"get_net": "get_NET,0:1"}))
+    print(blueray.get_net())
