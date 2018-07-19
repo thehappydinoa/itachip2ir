@@ -1,6 +1,7 @@
 from codecs import open
-from distutils.core import setup
 from os import path
+
+from setuptools import find_packages, setup
 
 here = path.abspath(path.dirname(__file__))
 
@@ -9,8 +10,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='itachip2ir',
-    version='1.3.3',
-    description='A small module for interacting with the Global Cache iTach WF2IR or IP2IR',
+    version='1.3.4',
+    description='A small Python module for interacting with the Global Cache iTach WF2IR or IP2IR',
     long_description=long_description,
     url='https://github.com/thehappydinoa/itachip2ir',
     author='Aidan Holland (thehappydinoa)',
@@ -20,8 +21,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Programming Language :: Python',
-        'Development Status :: 5 - Production',
+        'Development Status :: 5 - Production/Stable',
 
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
@@ -42,5 +42,10 @@ setup(
 
     packages=['itachip2ir'],
 
-    download_url='https://github.com/thehappydinoa/itachip2ir/releases'
+    project_urls={
+        'Bug Reports': 'https://github.com/thehappydinoa/itachip2ir/issues',
+        'Say Thanks!': 'http://saythanks.io/to/thehappydinoa',
+        'Contribute!': 'https://github.com/thehappydinoa/itachip2ir/pulls',
+        'Follow Me!': 'https://twitter.com/thehappydinoa/'
+    }
 )
