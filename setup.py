@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='itachip2ir',
-    version='1.3.1',
+    version='1.3.2',
     description='A small Python module for interacting with the Global Cache iTach WF2IR or IP2IR',
     long_description=long_description,
     url='https://github.com/thehappydinoa/itachip2ir',
@@ -32,8 +32,10 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.7'
     ],
 
     keywords='itach ip2ir Global Cache ir smart-home',
@@ -44,6 +46,6 @@ setup(
         'Bug Reports': 'https://github.com/thehappydinoa/itachip2ir/issues',
         'Say Thanks!': 'http://saythanks.io/to/thehappydinoa',
         'Contribute!': 'https://github.com/thehappydinoa/itachip2ir/pulls',
-        'Follow Me!': 'https://twitter.com/thehappydinoa/',
+        'Follow Me!': 'https://twitter.com/thehappydinoa/'
     },
 )
