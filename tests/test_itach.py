@@ -1,12 +1,12 @@
 import pytest
 
+import itachip2ir
 from itachip2ir import VirtualDevice, iTach
-from itachip2ir.exception import iTachException
 
 
-class TestITach(object):
+class TestiTach(object):
     def test_itach(self):
-        itach = iTach(ipaddress="192.168.1.111", port=4998)
+        itach = iTach(ipaddress="192.168.1.111")
         assert itach.ipaddress == "192.168.1.111"
         assert itach.port == 4998
         assert itach.devices == {}
@@ -39,8 +39,8 @@ class TestITach(object):
         assert device2.commands == commands
 
     def test_exception(self):
-        with pytest.raises(iTachException):
-            raise iTachException("ERR_01")
+        with pytest.raises(itachip2ir.iTachException):
+            raise itachip2ir.iTachException("ERR_01")
 
     def test_command(self):
         name = "device"
@@ -48,4 +48,5 @@ class TestITach(object):
         itach = iTach(ipaddress="localhost", port=4998)
         device = itach.add(VirtualDevice(
             name=name, commands=commands))
-        assert isinstance(device.test_command(), iTachException)
+        with pytest.raises(itachip2ir.iTachException):
+            response = device.test_command()

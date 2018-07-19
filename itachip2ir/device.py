@@ -2,7 +2,7 @@
 import socket
 from contextlib import closing
 
-from .exception import iTachException
+from itachip2ir.exception import iTachException
 
 
 class iTach(object):
@@ -90,7 +90,7 @@ class VirtualDevice(object):
             sock.sendall(self.format_command_name(command_name))
             return self.format_message(sock.recv(byte_size))
         except socket.error as error:
-            return iTachException(error)
+            raise iTachException(str(error))
         finally:
             sock.close()
 
