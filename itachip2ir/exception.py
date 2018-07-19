@@ -1,6 +1,8 @@
 class iTachException(Exception):
     def __init__(self, response):
-        if response.startswith("ERR_01"):
+        if not isinstance(response, str):
+            pass
+        elif response.startswith("ERR_01"):
             message = "Invalid command. Command not found."
         elif response.startswith("ERR_02"):
             message = "Invalid module address (does not exist)."
