@@ -9,10 +9,11 @@ class iTach(object):
     """iTach class"""
     devices = {}
 
-    def __init__(self, ipaddress="192.168.1.111", port=4998):
+    def __init__(self, ipaddress="192.168.1.111", port=4998, verbose=False):
         """init method"""
         self.ipaddress = ipaddress
         self.port = port
+        self.verbose = verbose
 
     def __repr__(self):
         return "iTach(devices=%s, ipaddress=%s, port=%d)" % (
@@ -37,7 +38,7 @@ class iTach(object):
     def send_command(self, device_name, command_name):
         """sends command to device"""
         device = self.devices[device_name]
-        return device.send_command(command_name)
+        return device.send_command(command_name, verbose=self.verbose)
 
 
 class VirtualDevice(object):
@@ -81,14 +82,19 @@ class VirtualDevice(object):
         command = self.commands[command_name]
         return self.format_command(command).encode()
 
-    def send_command(self, command_name, byte_size=4096, timeout=3):
+    def send_command(self, command_name, byte_size=4096, timeout=3, verbose=False):
         """send command from commands"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(timeout)
         try:
             sock.connect((self.ipaddress, self.port))
-            sock.sendall(self.format_command_name(command_name))
-            return self.format_message(sock.recv(byte_size))
+            command = self.format_command_name(command_name)
+            sock.sendall(command)
+            response = self.format_message(sock.recv(byte_size))
+            if verbose:
+                print("Sent: " + command)
+                print("Received: " + response)
+            return response
         except socket.error as error:
             raise iTachException(str(error))
         finally:
