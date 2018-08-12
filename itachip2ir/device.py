@@ -1,6 +1,7 @@
 """device.py"""
 import socket
 from contextlib import closing
+from traceback import format_exc
 
 from itachip2ir.exception import iTachException
 
@@ -56,14 +57,20 @@ class VirtualDevice(object):
         """repr method"""
         return "VirtualDevice(name=%s, commands=%s)" % (self.name, self.commands)
 
+    def function_generator(self, command_name):
+        """returns functions"""
+        def func():
+            """generated fuction"""
+            print(command_name)
+            return self.send_command(command_name)
+        func.__name__ = command_name
+        return func
+
     def generate_functions(self):
         """dynamically generate functions"""
         for command_name in self.commands.keys():
-            def func():
-                """generated fuction"""
-                return self.send_command(command_name)
+            func = self.function_generator(command_name)
             setattr(self, command_name, func)
-            func.__name__ = command_name
 
     def format_message(self, msg):
         """format message"""
@@ -96,6 +103,9 @@ class VirtualDevice(object):
                 print("Received: " + response)
             return response
         except socket.error as error:
+            if verbose:
+                print(repr(error))
+                print(format_exc())
             raise iTachException(str(error))
         finally:
             sock.close()

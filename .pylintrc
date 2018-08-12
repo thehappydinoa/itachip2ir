@@ -108,7 +108,10 @@ disable=print-statement,
         no-member,
         dangerous-default-value,
         no-self-use,
-        superfluous-parens
+        superfluous-parens,
+        invalid-name,
+        too-many-branches,
+        too-many-statements
 
 enable=c-extension-no-member
 
