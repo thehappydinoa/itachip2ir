@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthehappydinoa%2Fitachip2ir.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthehappydinoa%2Fitachip2ir?ref=badge_shield)
+
 ==========
 itachip2ir
 ==========
@@ -30,3 +32,7 @@ Check the ``examples/`` folder for more
 
 `The source for this project is available here
 <https://github.com/thehappydinoa/itachip2ir>`_.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthehappydinoa%2Fitachip2ir.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthehappydinoa%2Fitachip2ir?ref=badge_large)
